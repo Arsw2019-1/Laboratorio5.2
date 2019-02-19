@@ -13,6 +13,7 @@ import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,45 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        try{
+            Cinema temp=getCinemaString(cinema);            
+            List<CinemaFunction> tro=temp.getFunctions();           
+            for(CinemaFunction tr: tro){
+                if(tr.getMovie().equals(movieName)){
+                    tr.buyTicket(row, col);
+                }
+            }
+        }catch(Exception ex){
+            new CinemaException("Ya se vendio este asiento");     
+        }
+    }    
+    public Cinema getCinemaString(String name){
+        Cinema resp=null;
+        Iterator it;
+        it = cinemas.keySet().iterator();
+        while(it.hasNext()){
+            String key=(String) it.next();
+            if(cinemas.get(key).equals(name)){
+                resp=cinemas.get(key);
+            }
+        }
+        return resp;
     }
-
     @Override
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        List<CinemaFunction> resp=null;
+        try{
+            Cinema temp=getCinemaString(cinema);            
+            List<CinemaFunction> tro=temp.getFunctions();  
+            for(CinemaFunction tr: tro){
+                if(tr.getDate().equals(date)){
+                    resp=temp.getFunctions();
+                }
+            }
+        }catch(Exception ex){
+            new CinemaException("Ya se vendio este asiento");     
+        }        
+        return resp;
     }
 
     @Override

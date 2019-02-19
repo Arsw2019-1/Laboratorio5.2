@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  *
  * @author cristian
  */
-//@Service
+@Service
 public class CinemaFunction {
     
     private Movie movie;
