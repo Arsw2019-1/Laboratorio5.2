@@ -18,36 +18,48 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CinemaFunction {
-    
+
     private Movie movie;
-    private List<List<Boolean>> seats=new ArrayList<>();
+    private List<List<Boolean>> seats = new ArrayList<>();
     private String date;
-    
-    public CinemaFunction(){}
-    
-    public CinemaFunction(Movie movie, String date){
-        this.movie=movie;
-        this.date=date;
-        for (int i=0;i<7;i++){
-            List<Boolean> row= new ArrayList<>(Arrays.asList(new Boolean[12]));
+
+    public CinemaFunction() {
+    }
+
+    public CinemaFunction(Movie movie, String date) {
+        this.movie = movie;
+        this.date = date;
+        for (int i = 0; i < 7; i++) {
+            List<Boolean> row = new ArrayList<>(Arrays.asList(new Boolean[12]));
             Collections.fill(row, Boolean.TRUE);
             this.seats.add(row);
         }
     }
-    
-    public void buyTicket(int row,int col) throws CinemaException{
-        if (seats.get(row).get(col).equals(true)){
-            seats.get(row).set(col,Boolean.FALSE);
+
+    public int getTicketAvality() {
+        int resp = 0;
+        for (int i = 0; i < 7; i++) {
+            for (int u = 0; u < 12; u++) {
+                if (seats.get(i).get(u).equals(true)) {
+                    resp++;
+                }
+            }
         }
-        else{
+        return resp;
+    }
+
+    public void buyTicket(int row, int col) throws CinemaException {
+        if (seats.get(row).get(col).equals(true)) {
+            seats.get(row).set(col, Boolean.FALSE);
+        } else {
             throw new CinemaException("Seat booked");
         }
     }
-    
+
     public List<List<Boolean>> getSeats() {
         return this.seats;
     }
-    
+
     public Movie getMovie() {
         return movie;
     }
@@ -63,8 +75,5 @@ public class CinemaFunction {
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
-    
-    
+
 }

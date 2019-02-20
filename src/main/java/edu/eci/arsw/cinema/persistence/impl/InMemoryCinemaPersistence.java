@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
@@ -95,6 +96,11 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     @Override
     public Cinema getCinema(String name) throws CinemaPersistenceException {
         return cinemas.get(name);
+    }
+    
+    @Override
+    public Set<Cinema> getCinemaValues(){
+        return (Set<Cinema>)cinemas.values();
     }
 
 }

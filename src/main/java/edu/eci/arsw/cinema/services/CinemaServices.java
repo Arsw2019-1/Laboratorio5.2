@@ -7,7 +7,9 @@ package edu.eci.arsw.cinema.services;
 
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
+import edu.eci.arsw.cinema.persistence.CinemaFilter;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import java.util.List;
@@ -26,12 +28,23 @@ public class CinemaServices {
     @Autowired
     CinemaPersitence cps=null;
     
-    public void addNewCinema(Cinema c){
-        
+    @Autowired
+    CinemaFilter cpsf=null;
+    
+    public List<Movie> getMovieByGender(String cinema, String date, Object factor){
+        return cpsf.getListMovies(cinema, date, factor);
     }
     
-    public Set<Cinema> getAllCinemas(){
-        return null;
+    /**
+    public List<Movie> getMovieByAvailability(String cinema, String date, int factor){
+        return cpsf.getListMovies(cinema, date, factor);
+    }*/
+    public void addNewCinema(Cinema c) throws CinemaPersistenceException{
+        cps.saveCinema(c);
+    }
+    
+    public Set<Cinema> getAllCinemas() throws CinemaPersistenceException{
+        return cps.getCinemaValues();
     }
     
     /**

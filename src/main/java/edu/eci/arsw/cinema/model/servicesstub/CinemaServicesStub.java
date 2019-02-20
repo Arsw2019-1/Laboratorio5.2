@@ -9,6 +9,7 @@ import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
+import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.services.CinemaServices;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CinemaServicesStub {
 
     CinemaServices cinema;
 
-    public void CinemaServicesStub() {
+    public void CinemaServicesStub() throws CinemaPersistenceException {
         //Registrar cines
         String functionDate = "2028-9-20 19:30";
         List<CinemaFunction> functions = new ArrayList<>();
@@ -39,7 +40,7 @@ public class CinemaServicesStub {
         cinema.addNewCinema( new Cinema("El principio del fin", functions));
 
     }
-    public void consCIne(){
+    public void consCIne() throws CinemaPersistenceException{
     
         System.out.println("Los cines son: "+cinema.getAllCinemas());
     
@@ -54,8 +55,7 @@ public class CinemaServicesStub {
     public void buyTickets() throws CinemaException{
         cinema.buyTicket(1, 2, "El principio del fin", "2020-12-29 6:45", "BATTLE ANGEL: LA ÚLTIMA GUERRERA");
         cinema.buyTicket(5, 5, "Circo Soledad", "2028-9-20 19:30", "Advengers End Game");
-        cinema.buyTicket(5, 5, "El principio del fin", "2020-12-29 6:45", "Advengers End Game");
-    
+        cinema.buyTicket(5, 5, "El principio del fin", "2020-12-29 6:45", "Advengers End Game");    
     }
     
     
