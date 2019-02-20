@@ -12,6 +12,7 @@ import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaFilter;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,12 @@ import org.springframework.stereotype.Service;
 public class CinemaServices {
     //
     @Autowired
-    CinemaPersitence cps=null;
+    CinemaPersitence cps;
     
     @Autowired
-    CinemaFilter cpsf=null;
+    CinemaFilter cpsf;
+
+    
     
     public List<Movie> getMovieByGender(String cinema, String date, Object factor){
         return cpsf.getListMovies(cinema, date, factor);

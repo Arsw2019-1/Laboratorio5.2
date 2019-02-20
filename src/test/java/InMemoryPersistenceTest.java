@@ -4,7 +4,9 @@ import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
+import edu.eci.arsw.cinema.persistence.impl.FilterByGender;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
+import edu.eci.arsw.cinema.services.CinemaServices;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -125,11 +127,47 @@ public class InMemoryPersistenceTest {
         try {
             ipct.saveCinema(c2);
             fail("An exception was expected after saving a second cinema with the same name");
-                temp=ipct.getFunctionsbyCinemaAndDate("Movies Bogota", "2018-12-18 15:30");
-                System.out.println(""+temp);
-                assertEquals(temp, c2.getFunctions());
+            temp = ipct.getFunctionsbyCinemaAndDate("Movies Bogota", "2018-12-18 15:30");
+            System.out.println("" + temp);
+            assertEquals(temp, c2.getFunctions());
         } catch (CinemaPersistenceException ex) {
 
         }
+    }
+
+    @Test
+    public void testFilter() {
+        List<Movie>fi=new ArrayList<Movie>();
+        FilterByGender ge = new FilterByGender();
+        CinemaServices se=new CinemaServices();
+        //se = null;
+        String functionDate = "2018-12-18 15:30";
+        List<CinemaFunction> functions = new ArrayList<>();
+        CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie 2", "Action"), functionDate);
+        fi.add(new Movie("SuperHeroes Movie 2", "Action"));
+        CinemaFunction funct3 = new CinemaFunction(new Movie("SuperHeroes Movie 3", "Action"), functionDate);
+        fi.add(new Movie("SuperHeroes Movie 3", "Action"));
+        CinemaFunction funct4 = new CinemaFunction(new Movie("SuperHeroes Movie 4", "Action"), functionDate);
+        fi.add(new Movie("SuperHeroes Movie 4", "Action"));
+        CinemaFunction funct5 = new CinemaFunction(new Movie("SuperHeroes Movie 5", "Action"), functionDate);
+        fi.add(new Movie("SuperHeroes Movie 5", "Action"));
+        CinemaFunction funct2 = new CinemaFunction(new Movie("The Night 2", "Horror"), functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        functions.add(funct3);
+                functions.add(funct4);
+        functions.add(funct5);                
+        Cinema c = new Cinema("Movies Bogotá", functions);
+        List<Movie> re = null;
+        try {
+            se.addNewCinema(c);
+            re = se.getMovieByGender("Movies Bogotá", "2018-12-18 15:30", "Action");
+
+            assertEquals(fi, re);
+
+        } catch (CinemaPersistenceException ex) {
+            fail("Cinema persistence failed inserting the first cinema.");
+        }
+
     }
 }
