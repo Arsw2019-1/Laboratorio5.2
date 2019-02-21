@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.cinema.persistence;
 
+import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.Movie;
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
 public interface CinemaFilter {
     
     
-    public List<Movie> getListMovies(String cinema, String date, Object factor);
+    public List<Movie> getListMovies(Cinema cinema, String date, Object factor);
     
 }

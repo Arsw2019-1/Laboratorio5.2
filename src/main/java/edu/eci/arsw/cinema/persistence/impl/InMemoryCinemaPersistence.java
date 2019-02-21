@@ -12,6 +12,7 @@ import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +61,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         it = cinemas.keySet().iterator();
         while(it.hasNext()){
             String key=(String) it.next();
-            if(cinemas.get(key).equals(name)){
+            if(cinemas.get(key).getName().equals(name)){
                 resp=cinemas.get(key);
             }
         }
@@ -68,7 +69,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }
     @Override
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
-        List<CinemaFunction> resp=null;
+        List<CinemaFunction> resp=new ArrayList<CinemaFunction>();
         try{
             Cinema temp=getCinemaString(cinema);            
             List<CinemaFunction> tro=temp.getFunctions();  
@@ -78,7 +79,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
                 }
             }
         }catch(Exception ex){
-            new CinemaException("Ya se vendio este asiento");     
+            new CinemaException("No se pudo, lo siento");     
         }        
         return resp;
     }
@@ -99,8 +100,8 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }
     
     @Override
-    public Set<Cinema> getCinemaValues(){
-        return (Set<Cinema>)cinemas.values();
+    public Collection<Cinema> getCinemaValues(){
+        return cinemas.values();
     }
 
 }

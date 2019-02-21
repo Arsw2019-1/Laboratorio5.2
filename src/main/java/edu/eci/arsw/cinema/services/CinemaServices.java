@@ -13,6 +13,7 @@ import edu.eci.arsw.cinema.persistence.CinemaFilter;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class CinemaServices {
 
     
     
-    public List<Movie> getMovieByGender(String cinema, String date, Object factor){
+    public List<Movie> getMovieByGender(Cinema cinema, String date, Object factor){
         return cpsf.getListMovies(cinema, date, factor);
     }
     
@@ -46,7 +47,7 @@ public class CinemaServices {
         cps.saveCinema(c);
     }
     
-    public Set<Cinema> getAllCinemas() throws CinemaPersistenceException{
+    public Collection<Cinema> getAllCinemas() throws CinemaPersistenceException{
         return cps.getCinemaValues();
     }
     

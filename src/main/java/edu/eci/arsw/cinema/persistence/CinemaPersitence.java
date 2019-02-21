@@ -7,6 +7,7 @@ package edu.eci.arsw.cinema.persistence;
 
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +53,6 @@ public interface CinemaPersitence {
      */
     public Cinema getCinema(String name) throws CinemaPersistenceException;
     
-    public Set<Cinema> getCinemaValues()throws CinemaPersistenceException;
+    public Collection<Cinema> getCinemaValues()throws CinemaPersistenceException;
     
 }
